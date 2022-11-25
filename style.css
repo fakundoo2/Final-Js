@@ -1,0 +1,36 @@
+*{
+    padding: 0; 
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    background-color: rgb(161, 161, 161);
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+}
+
+.btn-modal, .btn-agregar{
+    background-color: rgb(41, 121, 41);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.modal{
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    width: 25%;
+    top: 0;
+    bottom:0;
+    padding: 2rem;
+    background-color: rgb(95, 95, 95);
+    visibility: hidden;
+}
+
+.modal.active{
+    visibility: visible;
+}

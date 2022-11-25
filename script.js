@@ -7,18 +7,22 @@ let nuevoPersona;
 
 let baseDatos = [];
 
-let seguir = true;
+const botonModal = document.querySelector("#btn-modal");
+const modal = document.querySelector("#modal");
+const botonAgregar = document.querySelector("#btn-agregar");
+const main = document.getElementById("#main");
 
-saludo();
-buscador();
+botonModal.addEventListener("click",() => {
+    modal.classList.add("active");
+})
 
-function saludo(){
-    alert("Bienvenido al registro del nuevo empleado, por favor llene con los datos correspondientes");
-    while(seguir){
-        constructor();
-        seguir = confirm("¿Desea agregar un empleado mas?")
-    }
-}
+botonAgregar.addEventListener("click",() => {
+    modal.classList.remove("active");
+    constructor();
+    console.log(baseDatos);
+    console.log(baseDatos.nombre);
+    console.log(baseDatos.nuevoNombre);
+})
 
 function constructor(){
 
@@ -29,24 +33,32 @@ function constructor(){
         this.dni = dni;
     }
 
-    nuevoNombre = prompt("ingrese el nombre del nuevo empleado");
-    nuevoApellido = prompt("ingrese el apellido");
-    nuevoEdad = prompt("ingrese la edad");
-    nuevoDni = prompt("ingrese el DNI");
+    nuevoNombre = document.querySelector("#nombre").value;
+    nuevoApellido = document.querySelector("#apellido").value;
+    nuevoEdad = document.querySelector("#edad").value;
+    nuevoDni = document.querySelector("#dni").value;
 
     nuevoPersona = new persona(nuevoNombre,nuevoApellido,nuevoEdad,nuevoDni);
-    console.log(nuevoPersona);
-
     baseDatos.push(nuevoPersona);
+
+    /*PROBANDO COMO TOMAR LOS DATOS DENTRO DE baseDatos */
+    baseDatos.forEach(sujetos =>{
+        console.log("entro");
+        console.log(baseDatos.nuevoNombre);
+    })
 
 }
 
-function buscador(){
-    var buscar = confirm("Quiere buscar a un empleado?");
 
-    if(buscar){
-        var buscadorSujeto = prompt("Ingrese el nombre de la persona que quiere buscar");
-        console.log(baseDatos.find((baseDatos) => baseDatos.nombre === buscadorSujeto));
-    }   
+
+function cargarPersona(){
+        baseDatos.forEach(sujetos =>{
+            let div = document.createElement("div");
+            div.classList.add("personas");
+            div.innerHTML = ` 
+
+
+            ` 
+        })
 }
 

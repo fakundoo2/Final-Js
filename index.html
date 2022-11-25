@@ -4,14 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>ejercicio2</title>
 </head>
 <body>
     <header>
         <h1>Registro de empleados</h1>
+        <button class="btn-modal" id="btn-modal">Contratar</button>
     </header>
 
+    <div class="modal" id="modal">
+        <input type="text" id="nombre" placeholder="ingrese nombre" class="form-modal" >
+        <input type="text" id="apellido" placeholder="ingrese apellido" class="form-modal" >
+        <input type="text" id="edad" placeholder="ingrese edad" class="form-modal" >
+        <input type="text" id="dni" placeholder="ingrese DNI" class="form-modal" >
+        <button class="btn-agregar" id="btn-agregar">Agregar</button>
+
+    </div>
+    
+    <main id="main">
+
+    </main>
 
     <script src="./script.js"></script>
 </body>
-</html>
+</html> 
