@@ -78,6 +78,7 @@ function cargarEmpleados(){
     for(empleado of _empleados){
         let div = document.createElement("div");
         div.classList.add("marco");
+        div.classList.add("col-2");
         div.innerHTML +=`
                 <p>Nombre:${empleado.nombre}</p>
                 <p>Apeliido:${empleado.apellido}</p>
@@ -91,13 +92,15 @@ function cargarEmpleados(){
 }
 
 function cargarDespedidos(){
-
     let despedidos = JSON.parse(localStorage.getItem("despedidos"));
-    _despedidos = despedidos;
+    if(despedidos !== null){
+        _despedidos = despedidos;
+    }
     listaDespedidos.innerHTML = "";
     for(despedido of _despedidos){
         let div = document.createElement("div");
         div.classList.add("marco-rojo");
+        div.classList.add("col-2");
         div.innerHTML +=`
                 <p>Nombre:${despedido.nombre}</p>
                 <p>Apeliido:${despedido.apellido}</p>

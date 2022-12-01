@@ -41,8 +41,6 @@ header{
     background-color: rgb(129, 194, 129);
     margin: 5%;
     padding: 3%;
-    width: 15vw;
-    height: 15vh;
     align-content: center;
 }
 
@@ -63,7 +61,5 @@ header{
     background-color: rgba(185, 65, 65, 0.959);
     margin: 5%;
     padding: 3%;
-    width: 15vw;
-    height: 15vh;
     align-content: center;
 }
