@@ -74,6 +74,10 @@ function despedirGente(){
 }
 
 function cargarEmpleados(){
+    let nuevoempleado = JSON.parse(localStorage.getItem("empleados"));
+    if(nuevoempleado !== null){
+        _empleados = nuevoempleado;
+    }
     listaEmpleados.innerHTML = "";
     for(empleado of _empleados){
         let div = document.createElement("div");
@@ -117,4 +121,5 @@ function guardarEnLocal(){
     localStorage.setItem("despedidos", JSON.stringify(_despedidos));
 
 }
+cargarEmpleados();
 cargarDespedidos();
