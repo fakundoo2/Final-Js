@@ -9,22 +9,26 @@
 </head>
 <body>
     <header>
-        <h1>Registro de empleados</h1>
         <button class="btn-modal" id="btn-modal">Contratar</button>
+        <h1>Registro de empleados</h1>
     </header>
 
     <div class="modal" id="modal">
         <input type="text" id="nombre" placeholder="ingrese nombre" class="form-modal" >
         <input type="text" id="apellido" placeholder="ingrese apellido" class="form-modal" >
-        <input type="text" id="edad" placeholder="ingrese edad" class="form-modal" >
-        <input type="text" id="dni" placeholder="ingrese DNI" class="form-modal" >
-        <button class="btn-agregar" id="btn-agregar">Agregar</button>
+        <input type="number" id="edad" placeholder="ingrese edad" class="form-modal" >
+        <input type="number" id="dni" placeholder="ingrese DNI" class="form-modal" >
+        <button class="btn-agregar" id="btn-agregar" type="re">Agregar</button>
 
     </div>
-    
-    <main id="main">
+    <h2>Empleados</h2>
+    <div id="lista-empleados">
 
-    </main>
+    </div>
+
+    <h2>Despedidos</h2>
+    <div id="lista-despedidos">
+    </div>
 
     <script src="./script.js"></script>
 </body>

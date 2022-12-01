@@ -3,7 +3,9 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+body{
+    font-family: sans-serif;
+}
 header{
     background-color: rgb(161, 161, 161);
     display: flex;
@@ -33,4 +35,35 @@ header{
 
 .modal.active{
     visibility: visible;
+}
+
+.marco{
+    background-color: rgb(129, 194, 129);
+    margin: 5%;
+    padding: 3%;
+    width: 15vw;
+    height: 15vh;
+    align-content: center;
+}
+
+#lista-empleados,#lista-despedidos{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn-despedir,.btn-modal-der{
+    background-color: rgb(223, 35, 35);
+    color: aliceblue;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.marco-rojo{
+    background-color: rgba(185, 65, 65, 0.959);
+    margin: 5%;
+    padding: 3%;
+    width: 15vw;
+    height: 15vh;
+    align-content: center;
 }
