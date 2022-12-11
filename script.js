@@ -12,31 +12,60 @@ const botonModal = document.querySelector("#btn-modal");
 const modal = document.querySelector("#modal");
 const botonAgregar = document.querySelector("#btn-agregar");
 const listaEmpleados = document.querySelector("#lista-empleados");
+const listaJefes = document.querySelector("#lista-jefes");
 let botonDespedido = document.querySelectorAll("#btn-despedir");
 const listaDespedidos = document.querySelector("#lista-despedidos");
 
-botonModal.addEventListener("click",() => {
-    if(isActive){
-        modal.classList.add("active");
-        isActive = false;
-    }else if(!isActive){
+fetch("./empleados.json")
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(empleado =>{
+            let div = document.createElement("div");
+            div.classList.add("marco");
+            div.classList.add("azul");
+            div.classList.add("col-2");
+            div.innerHTML +=`
+                <p>Cargo: ${empleado.cargo}</p>
+                <p>Nombre:${empleado.nombre}</p>
+                <p>Apellido:${empleado.apellido}</p>
+                <p>Edad:${empleado.edad}</p>
+                <p>DNI:${empleado.dni}</p>
+            `
+            listaJefes.append(div);
+        })
+        
+    })
+
+    botonModal.addEventListener("click",() => {
+        if(isActive){
+            modal.classList.add("active");
+            isActive = false;
+        }else if(!isActive){
+            modal.classList.remove("active");
+            isActive = true;
+        }
+    })
+    
+    botonAgregar.addEventListener("click",() => {
         modal.classList.remove("active");
-        isActive = true;
-    }
-})
-
-botonAgregar.addEventListener("click",() => {
-    modal.classList.remove("active");
-    listaEmpleados.innerHTML = "";
-    capturarDatos();
-})
-
-function capturarDatos(){
-
-    function persona(nombre,apellido,edad,dni){
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
+        listaEmpleados.innerHTML = "";
+        capturarDatos();
+        
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Empleado agregado',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    })
+    
+    function capturarDatos(){
+        
+        function persona(nombre,apellido,edad,dni){
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.edad = edad;
         this.dni = dni;
     }
 
@@ -49,65 +78,39 @@ function capturarDatos(){
     _empleados.push(nuevoPersona);
     guardarEnLocal();
     cargarEmpleados();
-    despedirGente();
-}
-
-
-function despedirGente(){
-    botonDespedido = document.querySelectorAll("#btn-despedir");
-    botonDespedido.forEach(boton => {
-        boton.addEventListener("click",() =>{
-            const findpersonaindex = _empleados.findIndex(em => em.dni == empleado.dni);
-            const find = _empleados.find(em => em.dni == empleado.dni);
-            _despedidos.push(find);
-            _empleados.splice(findpersonaindex,1);
-            console.log(findpersonaindex);
-            console.log(_despedidos);
-            guardarEnLocal();
-            cargarEmpleados();
-            cargarDespedidos();
-        } );
-
-
-    });
-    
 }
 
 function cargarEmpleados(){
     let nuevoempleado = JSON.parse(localStorage.getItem("empleados"));
-    if(nuevoempleado !== null){
-        _empleados = nuevoempleado;
-    }
     listaEmpleados.innerHTML = "";
     for(empleado of _empleados){
         let div = document.createElement("div");
         div.classList.add("marco");
+        div.classList.add("verde");
         div.classList.add("col-2");
         div.innerHTML +=`
                 <p>Nombre:${empleado.nombre}</p>
-                <p>Apeliido:${empleado.apellido}</p>
+                <p>Apellido:${empleado.apellido}</p>
                 <p>Edad:${empleado.edad}</p>
                 <p>DNI:${empleado.dni}</p>
-                <button class="btn-despedir" id="btn-despedir">Despedir</button>
+                <button class="btn-despedir" id="${empleado.dni}">Despedir</button>
         `
         listaEmpleados.append(div);
     }
-
+    botonDespedir();
 }
 
 function cargarDespedidos(){
     let despedidos = JSON.parse(localStorage.getItem("despedidos"));
-    if(despedidos !== null){
-        _despedidos = despedidos;
-    }
     listaDespedidos.innerHTML = "";
     for(despedido of _despedidos){
         let div = document.createElement("div");
-        div.classList.add("marco-rojo");
+        div.classList.add("marco");
+        div.classList.add("rojo");
         div.classList.add("col-2");
         div.innerHTML +=`
                 <p>Nombre:${despedido.nombre}</p>
-                <p>Apeliido:${despedido.apellido}</p>
+                <p>Apellido:${despedido.apellido}</p>
                 <p>Edad:${despedido.edad}</p>
                 <p>DNI:${despedido.dni}</p>
         `
@@ -116,10 +119,48 @@ function cargarDespedidos(){
 
 }
 
+function botonDespedir(){
+    botonesDespedir = document.querySelectorAll(".btn-despedir");
+
+    botonesDespedir.forEach(boton => {
+        boton.addEventListener("click", agregarAdespidos);
+        
+    })
+
+}
+
+function agregarAdespidos(e){
+    let idbtn= e.currentTarget.id;
+    let agregardespidoindex = _empleados.findIndex(des => des.dni === idbtn);
+    let agregardespido = _empleados.find(des => des.dni === idbtn);
+    _despedidos.push(agregardespido);
+    _empleados.splice(agregardespidoindex,1)
+    guardarEnLocal();
+    cargarEmpleados();
+    cargarDespedidos();
+    Toastify({
+        text:`${agregardespido.nombre} despedido`,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+}
+
 function guardarEnLocal(){
     localStorage.setItem("empleados", JSON.stringify(_empleados));
     localStorage.setItem("despedidos", JSON.stringify(_despedidos));
 
 }
+
 cargarEmpleados();
 cargarDespedidos();
+
+
